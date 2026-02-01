@@ -86,6 +86,15 @@ public class AuthorRepositorylIntegrationTests {
 
     }
 
+    @Test public void testThatGetAuthorsWithAgeGreaterThan(){
+        List<Author> authors = TestDataUtil.createTestAuthorList();
+        underTest.saveAll(authors);
+        // A Name that Spring Data JPA can not figure out
+        Iterable<Author> result = underTest.findAuthorsWithAgeGreaterThan(41);
+
+        assertThat(result).containsExactly(authors.getLast());
+    }
+
 
 
 
