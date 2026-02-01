@@ -1,4 +1,4 @@
-package com.likeyourdie.database.dao.impl;
+package com.likeyourdie.database;
 
 import com.likeyourdie.database.domain.Author;
 import com.likeyourdie.database.domain.Book;
@@ -12,7 +12,7 @@ public final class TestDataUtil {
     }
 
 
-    static Author createTestAuthor() {
+    public static Author createTestAuthor() {
         return Author.builder()
                 .id(1L)
                 .age(80)
@@ -20,7 +20,7 @@ public final class TestDataUtil {
                 .build();
     }
 
-    static Book getTestBook() {
+    public static Book getTestBook() {
         return Book.builder()
                 .isbn("Mock ISBN")
                 .title("Book title")
@@ -28,7 +28,7 @@ public final class TestDataUtil {
                 .build();
     }
 
-    static List<Author> createTestAuthorList(){
+    public static List<Author> createTestAuthorList(){
         List<Author> authors = new ArrayList<>();
         Author tmpAuthor = null;
         for(int i = 0; i<3; i++){
@@ -42,7 +42,7 @@ public final class TestDataUtil {
         return authors;
     }
 
-    static List<Book> createTestBookListBelongingToAuthor(Author author){
+    public static List<Book> createTestBookListBelongingToAuthor(Author author){
         List<Book> books = new ArrayList<>();
         Book tmpBook = null;
         for(int i = 0; i<3 ; i++){

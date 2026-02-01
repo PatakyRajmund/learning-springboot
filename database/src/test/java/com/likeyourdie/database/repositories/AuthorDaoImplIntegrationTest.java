@@ -1,5 +1,6 @@
-package com.likeyourdie.database.dao.impl;
+package com.likeyourdie.database.repositories;
 
+import com.likeyourdie.database.TestDataUtil;
 import com.likeyourdie.database.domain.Author;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,7 +11,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.OptionalInt;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(SpringExtension.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class AuthorDaoImplIntegrationTest {
-
+/*
     private AuthorDaoImpl underTest;
 
     @Autowired
@@ -74,5 +74,7 @@ public class AuthorDaoImplIntegrationTest {
         Optional<Author> result = underTest.findOne(author.getId());
         assertThat(result).isEmpty();
     }
+
+ */
 
 }

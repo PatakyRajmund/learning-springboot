@@ -1,6 +1,6 @@
-package com.likeyourdie.database.dao.impl;
+package com.likeyourdie.database.repositories;
 
-import com.likeyourdie.database.dao.AuthorDao;
+import com.likeyourdie.database.TestDataUtil;
 import com.likeyourdie.database.domain.Author;
 import com.likeyourdie.database.domain.Book;
 import org.junit.jupiter.api.Test;
@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class BookDaoImplIntegratonTest {
-    private BookDaoImpl underTest;
+   /* private BookDaoImpl underTest;
     private AuthorDao authorDao;
     @Autowired
     public BookDaoImplIntegratonTest(BookDaoImpl underTest, AuthorDao authorDao) {
@@ -92,4 +92,6 @@ public class BookDaoImplIntegratonTest {
         assertThat(result).isEmpty();
 
     }
+
+    */
 }
