@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,25 +19,21 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-public class BookDaoImplIntegratonTest {
-   /* private BookDaoImpl underTest;
-    private AuthorDao authorDao;
+public class BookRepositoryIntegratonTests {
+    private BookRepository underTest;
     @Autowired
-    public BookDaoImplIntegratonTest(BookDaoImpl underTest, AuthorDao authorDao) {
+    public BookRepositoryIntegratonTests(BookRepository underTest) {
         this.underTest = underTest;
-        this.authorDao = authorDao;
     }
 
     @Test
     public void testThatCreatesAndReadsABook(){
-        Book book = TestDataUtil.getTestBook();
         Author author = TestDataUtil.createTestAuthor();
-        book.setAuthorid(author.getId());
+        Book book = TestDataUtil.getTestBook(author);
+        underTest.save(book);
+        author.setId(1L);
 
-        authorDao.create(author);
-        underTest.create(book);
-
-        var result = underTest.findOne(book.getIsbn());
+        var result = underTest.findById(book.getIsbn());
 
         assertThat(result).isPresent();
         assertThat(result.get()).isEqualTo(book);
@@ -45,16 +42,13 @@ public class BookDaoImplIntegratonTest {
     @Test
     public void testThatMultipleBooksCanBeCreatedAndRecalled(){
         Author author = TestDataUtil.createTestAuthor();
-        authorDao.create(author);
         List<Book> bookList = TestDataUtil.createTestBookListBelongingToAuthor(author);
 
-        for(Book book : bookList){
-            underTest.create(book);
-        }
+        Iterable<Book> savedBooks = underTest.saveAll(bookList);
 
-        List<Book> result = underTest.findMany();
+        Iterable<Book> result = underTest.findAll();
 
-        assertThat(result).hasSize(bookList.size()).isEqualTo(bookList);
+        assertThat(result).hasSize(bookList.size()).isEqualTo(savedBooks);
 
     }
 
@@ -65,33 +59,30 @@ public class BookDaoImplIntegratonTest {
         List<Book> booksList = TestDataUtil.createTestBookListBelongingToAuthor(author);
 
         Book book = booksList.getFirst();
-        Book newBook = booksList.get(1);
 
-        authorDao.create(author);
-        underTest.create(book);
-
-        underTest.update(book.getIsbn(),newBook);
-        Optional<Book> result  = underTest.findOne(newBook.getIsbn());
+        Book savedBook = underTest.save(book);
+        savedBook.setTitle("ASD");
+        underTest.save(savedBook);
+        Optional<Book> result  = underTest.findById(book.getIsbn());
 
         assertThat(result).isPresent();
-        assertThat(result.get()).isEqualTo(newBook);
+        assertThat(result.get()).isEqualTo(savedBook);
     }
+
 
     @Test
     public void testThatBookCanBeDeleted(){
-        Book book = TestDataUtil.getTestBook();
         Author author = TestDataUtil.createTestAuthor();
-        book.setAuthorid(author.getId());
+        Book book = TestDataUtil.getTestBook(author);
 
-        authorDao.create(author);
-        underTest.create(book);
+        underTest.save(book);
 
-        underTest.delete(book.getIsbn());
-        Optional<Book> result = underTest.findOne(book.getIsbn());
+        underTest.deleteById(book.getIsbn());
+        Optional<Book> result = underTest.findById(book.getIsbn());
 
         assertThat(result).isEmpty();
 
     }
 
-    */
+
 }

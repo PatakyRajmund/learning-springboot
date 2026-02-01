@@ -17,20 +17,20 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-public class AuthorDaoImplIntegrationTest {
-/*
-    private AuthorDaoImpl underTest;
+public class AuthorRepositorylIntegrationTests {
+    private AuthorRepository underTest;
 
     @Autowired
-    public AuthorDaoImplIntegrationTest(AuthorDaoImpl underTest){
+    public AuthorRepositorylIntegrationTests(AuthorRepository underTest){
         this.underTest = underTest;
     }
 
     @Test
     public void testThatAuthorCanBeCreatedAndRead(){
         Author author = TestDataUtil.createTestAuthor();
-        underTest.create(author);
-        var result = underTest.findOne(author.getId());
+        underTest.save(author);
+
+        var result = underTest.findById(author.getId());
 
         assertThat(result).isPresent();
         assertThat(result.get()).isEqualTo(author);
@@ -41,11 +41,9 @@ public class AuthorDaoImplIntegrationTest {
     public void testThatMultipleAuthorsCanBeCreatedAndRead(){
         List<Author> authorList = TestDataUtil.createTestAuthorList();
 
-        for (Author author : authorList){
-            underTest.create(author);
-        }
+        underTest.saveAll(authorList);
 
-        var result = underTest.findMany();
+        var result = underTest.findAll();
         assertThat(result).hasSize(authorList.size());
         assertThat(result).isEqualTo(authorList);
     }
@@ -54,11 +52,12 @@ public class AuthorDaoImplIntegrationTest {
     public void testThatAuthorCanBeUpdated(){
         List<Author> authors = TestDataUtil.createTestAuthorList();
         Author author = authors.getFirst();
-        underTest.create(author);
+        underTest.save(author);
 
         Author newAuthor = authors.get(1);
-        underTest.update(author.getId(), newAuthor);
-        Optional<Author> result = underTest.findOne(newAuthor.getId());
+        newAuthor.setId(author.getId());
+        underTest.save(newAuthor);
+        Optional<Author> result = underTest.findById(newAuthor.getId());
 
         assertThat(result).isPresent();
         assertThat(result.get()).isEqualTo(newAuthor);
@@ -67,14 +66,15 @@ public class AuthorDaoImplIntegrationTest {
     @Test
     public void testThatAuthorCanBeDeleted(){
         Author author = TestDataUtil.createTestAuthor();
-        underTest.create(author);
+        underTest.save(author);
 
-        underTest.delete(author.getId());
+        underTest.deleteById(author.getId());
 
-        Optional<Author> result = underTest.findOne(author.getId());
+        Optional<Author> result = underTest.findById(author.getId());
         assertThat(result).isEmpty();
     }
 
- */
+
+
 
 }
