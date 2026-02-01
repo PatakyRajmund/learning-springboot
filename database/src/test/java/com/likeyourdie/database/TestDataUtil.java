@@ -1,4 +1,4 @@
-package com.likeyourdie.database.dao.impl;
+package com.likeyourdie.database;
 
 import com.likeyourdie.database.domain.Author;
 import com.likeyourdie.database.domain.Book;
@@ -12,28 +12,28 @@ public final class TestDataUtil {
     }
 
 
-    static Author createTestAuthor() {
+    public static Author createTestAuthor() {
         return Author.builder()
-                .id(1L)
+                .id(null)
                 .age(80)
                 .name("Name1")
                 .build();
     }
 
-    static Book getTestBook() {
+    public static Book getTestBook(final Author author) {
         return Book.builder()
                 .isbn("Mock ISBN")
                 .title("Book title")
-                .authorid(1L)
+                .author(author)
                 .build();
     }
 
-    static List<Author> createTestAuthorList(){
+    public static List<Author> createTestAuthorList(){
         List<Author> authors = new ArrayList<>();
         Author tmpAuthor = null;
         for(int i = 0; i<3; i++){
             tmpAuthor = Author.builder()
-                    .id((long) i)
+                    .id(null)
                     .name("Author "+ i)
                     .age(40 + i)
                     .build();
@@ -42,14 +42,14 @@ public final class TestDataUtil {
         return authors;
     }
 
-    static List<Book> createTestBookListBelongingToAuthor(Author author){
+    public static List<Book> createTestBookListBelongingToAuthor(Author author){
         List<Book> books = new ArrayList<>();
         Book tmpBook = null;
         for(int i = 0; i<3 ; i++){
             tmpBook = Book.builder()
                     .isbn("ISBN "+ i)
                     .title("TITLE " + i)
-                    .authorid(author.getId())
+                    .author(author)
                     .build();
             books.add(tmpBook);
         }
