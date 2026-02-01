@@ -74,6 +74,18 @@ public class AuthorRepositorylIntegrationTests {
         assertThat(result).isEmpty();
     }
 
+    @Test
+    public void testThatGetAuthorsWithAgeLessThan(){
+        // AGES between 40 AND 42
+        List<Author> authors = TestDataUtil.createTestAuthorList();
+        underTest.saveAll(authors);
+
+        Iterable<Author> result = underTest.ageLessThan(42);
+        assertThat(result).containsExactly(authors.getFirst(), authors.get(1));
+
+
+    }
+
 
 
 
